@@ -1,7 +1,52 @@
 # CarND-Controls-PID
-Self-Driving Car Engineer Nanodegree Program
-
 ---
+Self-Driving Car Engineer Nanodegree Program
+This repository contains C++ code for implementation of PID controller, to derive steering angles for a car to drive around a circular track. 
+This task was implemented to partially fulfill Term-II goals of Udacity's self driving car Nano degree program.
+
+
+## Background
+---
+A critical module in the working of any robotic system is the control module. Control module defines the action, which the robotic system performs in order to achieve a task. These actions can vary on type of the system and type of the task. For e.g.: A simple mixer grinder's control module only controls the speed of rotating motor. A little more complex system such as a Remote Controlled (RC) car needs a control module to move forward, backward and turn. Highly complex systems such as prosthetic arms, self driving cars, product manufacturing factory units require control modules for multiple tasks at the same time.
+
+One of the basic implementation of a control system is a Proportional (P), Differential (D), Integral (I), together, a PID controller. PID controller is the most popular controller and is used in applications across domains. 
+
+## PID-Controller
+---
+A proportional–integral–derivative controller (PID controller or three term controller) is a control loop feedback mechanism widely used in industrial control systems and a variety of other applications requiring continuously modulated control. 
+A PID controller continuously calculates an error value `e(t)` as the difference between a desired setpoint (SP) and a measured process variable (PV) and applies a correction based on proportional, integral, and derivative terms (denoted P, I, and D respectively) which give the controller its name.
+
+## Working of PID Controller
+---
+The basic principle of working of a PID controller is to satisfy a boundary value problem. Most common examples of such problems are either minimization of the total error in the system or maximization of the total gain in the system. These error or gain problems are represented mathematically and are used to govern the effect to P, I and D components of a PID controller. These components are described below:
+
+  1. Proportional (P) component:
+    Mathematically, the P component establishes linear relationship with the problem. The effect of P component is in proportional to the value of problem at the current time step. For e.g.:, if the problem is to minimize the error in the system at current time step, the value of P component is given by the formula:
+    
+    αp = -Kp * error
+    
+    where, Kp is a tuning parameter known as the proportional gain. The negative sign in the beginning signifies that P component is used to cancel the effect or error, or in other words, reduce it.
+    
+  2. Differential (D) component:
+    Mathematically, the D component establishes linear relationship with the rate of change of problem. The effect of D component is in proportional to the rate of change problem from last time step to current time step. For e.g.:, if the problem is to minimize the uncertainty in the system, the value of D component is given by the formula:
+    
+    αd = -Kd * d(error)/dt
+    
+    where, Kd is a tuning parameter known as the differential gain. The negative sign in the beginning signifies that D component is used to cancel the effect or rate of change of error, or in other words, reduce it. The D component is used to minimize sudden changes in the system.
+    
+  3. Integral (D) component:
+    Mathematically, the I component establishes linear relationship between the average value of problem over time. The effect of I component is in proportional to the average value of problem from the beginning of time to the current time step. For e.g., if the problem is to minimize the error in the system, the value of I component is given by the formula:
+    
+    αi = -Ki * ∑ error
+    
+    where, Ki is a tuning parameter known as the integral gain. The negative sign in the beginning signifies that I component is used to cancel the effect or average error, or in other words, reduce it. The I component is used to correct systemic bias.
+    
+  When all components are used, the mathematical equation is given by:
+  
+  α = (-Kp * error) + (-Kd * d(error)/dt) + (Ki * ∑ error)
+  
+  where, α is the control input to the system, often known as the **actuator** input.
+  
 
 ## Dependencies
 
