@@ -61,7 +61,7 @@ void PID::MyTwiddle(double total_error, vector<double> hyperparameters)
 
   sum_of_dps = std::accumulate(dps.begin(), dps.end(), 0);
 
-  cout<<"Current best error is: "<< current_best_error<<endl;
+  cout<<"best error = "<< current_best_error<<endl;
 
   if (!is_twiddle_init)
   {
@@ -75,10 +75,10 @@ void PID::MyTwiddle(double total_error, vector<double> hyperparameters)
   {
     if (is_twiddle_reset)
     {
-      cout<<"Twiddle reset!-----------------------------"<<endl;
+      cout<<"Twiddle reset"<<endl;
       last_hyperp.at(i) = hyperparameters.at(i);
       hyperparameters.at(i) += dps.at(i);
-      cout<<"Hyper-parameter magnitude increased!"<<endl;
+      cout<<"increased"<<endl;
       is_twiddle_reset = false;
     }
     else
@@ -93,12 +93,12 @@ void PID::MyTwiddle(double total_error, vector<double> hyperparameters)
         if (fabs(last_hyperp.at(i)) < fabs(hyperparameters.at(i))) {
           last_hyperp.at(i) = hyperparameters.at(i);
           hyperparameters.at(i) -= 2.0 * dps.at(i);
-          cout<<"Hyper-parameter magnitude decreased!"<<endl;
+          cout<<"decreased"<<endl;
         } else {
           last_hyperp.at(i) = hyperparameters.at(i);
           hyperparameters.at(i) += dps.at(i);
           dps.at(i) *= 0.9;
-          cout<<"Hyper-parameter magnitude kept same!"<<endl;
+          cout<<"magnitude unchanged"<<endl;
           is_twiddle_reset = true;
         }
       }
