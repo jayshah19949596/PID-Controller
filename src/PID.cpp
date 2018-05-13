@@ -60,30 +60,40 @@ void PID::PerformTwiddle(double total_error, double hyperparameter) {
 
   cout << "Current best error is: " << current_best_error << endl;
   cout << "Dp is: " << dp << endl;
-  if (!is_twiddle_init) {
+  if (!is_twiddle_init)
+  {
     cout << "Twiddle init";
     current_best_error = total_error;
     is_twiddle_init = true;
     return;
   }
-  if ((fabs(dp) > tolerance)) {
+  if ((fabs(dp) > tolerance))
+  {
     if (is_twiddle_reset) {
       cout << "Twiddle reset!-----------------------------" << endl;
       last_hyperp = hyperparameter;
       hyperparameter += dp;
       cout << "Hyperparameter magnitude increased!" << endl;
       is_twiddle_reset = false;
-    } else {
-      if (total_error < current_best_error) {
+    }
+    else
+    {
+      if (total_error < current_best_error)
+      {
         dp *= 1.1;
         is_twiddle_reset = true;
         current_best_error = total_error;
-      } else {
-        if (fabs(last_hyperp) < fabs(hyperparameter)) {
+      }
+      else
+      {
+        if (fabs(last_hyperp) < fabs(hyperparameter))
+        {
           last_hyperp = hyperparameter;
           hyperparameter -= 2.0 * dp;
           cout << "Hyperparameter magnitude decreased!" << endl;
-        } else {
+        }
+        else
+        {
           last_hyperp = hyperparameter;
           hyperparameter += dp;
           dp *= 0.9;
