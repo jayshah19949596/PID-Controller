@@ -93,7 +93,7 @@ void PID::PerformTwiddle(double total_error, double hyperparameter) {
       }
     }
   }
-  cout << "Hyperparameter magnitude kept same! " << hyperparameter << endl;
+  cout << "Hyperparameter is = " << hyperparameter << endl;
 
 }
 
