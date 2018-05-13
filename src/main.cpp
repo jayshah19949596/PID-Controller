@@ -73,16 +73,6 @@ int main()
                         - pid_st.Kd * pid_st.d_error
                         - pid_st.Ki * pid_st.i_error;
 
-          /*pid_sp.UpdateError(fabs(cte));
-          speed_value = 20 - pid_sp.Kp * pid_sp.p_error
-                        - pid_sp.Kd * pid_sp.d_error
-                        - pid_sp.Ki * pid_sp.i_error;*/
-
-//          pid_th.UpdateError(fabs(cte));
-//          throttle_value = 0.75 - pid_th.Kp * pid_th.p_error
-//                                - pid_th.Kd * pid_th.d_error
-//                                - pid_th.Ki * pid_th.i_error;
-
           if (do_twiddle)
           {
             if (timesteps > 1000)
