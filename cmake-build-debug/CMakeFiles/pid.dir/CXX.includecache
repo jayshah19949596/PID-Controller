@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/jaysh/Desktop/SDCND T2/PID-Control-Project/src/PID.cpp
+C:/Users/jaysh/Desktop/SDCNDT2/PID-Control-Project/src/PID.cpp
 PID.h
-C:/Users/jaysh/Desktop/SDCND T2/PID-Control-Project/src/PID.h
+C:/Users/jaysh/Desktop/SDCNDT2/PID-Control-Project/src/PID.h
 vector
 -
 math.h
@@ -16,13 +16,13 @@ math.h
 numeric
 -
 
-C:/Users/jaysh/Desktop/SDCND T2/PID-Control-Project/src/PID.h
+C:/Users/jaysh/Desktop/SDCNDT2/PID-Control-Project/src/PID.h
 vector
 -
 uWS/uWS.h
 -
 
-C:/Users/jaysh/Desktop/SDCND T2/PID-Control-Project/src/json.hpp
+C:/Users/jaysh/Desktop/SDCNDT2/PID-Control-Project/src/json.hpp
 algorithm
 -
 array
@@ -78,15 +78,15 @@ utility
 vector
 -
 
-C:/Users/jaysh/Desktop/SDCND T2/PID-Control-Project/src/main.cpp
+C:/Users/jaysh/Desktop/SDCNDT2/PID-Control-Project/src/main.cpp
 uWS/uWS.h
 -
 iostream
 -
 json.hpp
-C:/Users/jaysh/Desktop/SDCND T2/PID-Control-Project/src/json.hpp
+C:/Users/jaysh/Desktop/SDCNDT2/PID-Control-Project/src/json.hpp
 PID.h
-C:/Users/jaysh/Desktop/SDCND T2/PID-Control-Project/src/PID.h
+C:/Users/jaysh/Desktop/SDCNDT2/PID-Control-Project/src/PID.h
 math.h
 -
 cmath

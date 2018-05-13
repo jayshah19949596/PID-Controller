@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/jaysh/Desktop/SDCND T2/PID-Control-Project/src/PID.cpp" "C:/Users/jaysh/Desktop/SDCND T2/PID-Control-Project/cmake-build-debug/CMakeFiles/pid.dir/src/PID.cpp.obj"
-  "C:/Users/jaysh/Desktop/SDCND T2/PID-Control-Project/src/main.cpp" "C:/Users/jaysh/Desktop/SDCND T2/PID-Control-Project/cmake-build-debug/CMakeFiles/pid.dir/src/main.cpp.obj"
+  "C:/Users/jaysh/Desktop/SDCNDT2/PID-Control-Project/src/PID.cpp" "C:/Users/jaysh/Desktop/SDCNDT2/PID-Control-Project/cmake-build-debug/CMakeFiles/pid.dir/src/PID.cpp.obj"
+  "C:/Users/jaysh/Desktop/SDCNDT2/PID-Control-Project/src/main.cpp" "C:/Users/jaysh/Desktop/SDCNDT2/PID-Control-Project/cmake-build-debug/CMakeFiles/pid.dir/src/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

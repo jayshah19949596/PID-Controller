@@ -39,8 +39,9 @@ int main()
   // TODO: Initialize the pid variable.
 
   pid_st.Init(0.114843, 0.00000001292, 3.0447);
-  pid_th.Init(0.316731, 0.0000, 0.0226185);
-  //pid_sp.Init(0.21, 0.39, 0.35);
+  //pid_th.Init(0.316731, 0.0000, 0.0226185);
+  pid_st.Init(0.2, 0.00000001292, 3.0);
+
 
   h.onMessage([&pid_st, &pid_sp, &pid_th](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
@@ -77,18 +78,18 @@ int main()
                         - pid_sp.Kd * pid_sp.d_error
                         - pid_sp.Ki * pid_sp.i_error;*/
 
-          pid_th.UpdateError(fabs(cte));
-          throttle_value = 0.75 - pid_th.Kp * pid_th.p_error
-                                - pid_th.Kd * pid_th.d_error
-                                - pid_th.Ki * pid_th.i_error;
+//          pid_th.UpdateError(fabs(cte));
+//          throttle_value = 0.75 - pid_th.Kp * pid_th.p_error
+//                                - pid_th.Kd * pid_th.d_error
+//                                - pid_th.Ki * pid_th.i_error;
 
           if (do_twiddle)
           {
-            if (timesteps > 500)
+            if (timesteps > 1000)
             {
               //pid_st.MyTwiddle(total_error, pid_st.Ki);
               //vector <double> hp = {pid_st.Kp, pid_st.Ki, pid_st.Kd};
-              pid_st.MyTwiddle(total_error, {pid_st.Kp, pid_st.Ki, pid_st.Kd});
+              pid_st.PerformTwiddle(total_error, pid_st.Ki);
               pid_st.Restart(ws);
               timesteps = 0;
               total_error = 0.0;
@@ -106,7 +107,7 @@ int main()
 
           json msgJson;
           msgJson["steering_angle"] = steer_value;
-          msgJson["throttle"] = throttle_value;
+          msgJson["throttle"] = 0.4; // throttle_value;
 
           auto msg = "42[\"steer\"," + msgJson.dump() + "]";
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);

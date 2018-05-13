@@ -17,7 +17,7 @@ void PID::Init(double Kp, double Ki, double Kd)
 {
 
   tolerance = 0.005;
-  dp = -0.01;
+  dp = 0.1*Ki;
   dps = {1.0, 1.0, 1.0};
 
   this->Kp = Kp;
@@ -51,61 +51,152 @@ void PID::Restart(uWS::WebSocket<uWS::SERVER> ws)
 }
 
 
-void PID::MyTwiddle(double total_error, vector<double> hyperparameters)
-{
+void PID::PerformTwiddle(double total_error, double hyperparameter) {
   static double current_best_error = 100000;
   static bool is_twiddle_init = false;
   static bool is_twiddle_reset = false;
-  static vector<double> last_hyperp = {0, 0, 0};
-  double sum_of_dps;
+  static double last_hyperp = 0;
+  int tolerance = 0.005;
 
-  sum_of_dps = std::accumulate(dps.begin(), dps.end(), 0);
-
-  cout<<"best error = "<< current_best_error<<endl;
-
-  if (!is_twiddle_init)
-  {
-    cout<<"Twiddle init";
+  cout << "Current best error is: " << current_best_error << endl;
+  cout << "Dp is: " << dp << endl;
+  if (!is_twiddle_init) {
+    cout << "Twiddle init";
     current_best_error = total_error;
     is_twiddle_init = true;
+    return;
   }
-
-
-  for(int i=0 ; i<hyperparameters.size(); i++)
-  {
-    if (is_twiddle_reset)
-    {
-      cout<<"Twiddle reset"<<endl;
-      last_hyperp.at(i) = hyperparameters.at(i);
-      hyperparameters.at(i) += dps.at(i);
-      cout<<"increased"<<endl;
+  if ((fabs(dp) > tolerance)) {
+    if (is_twiddle_reset) {
+      cout << "Twiddle reset!-----------------------------" << endl;
+      last_hyperp = hyperparameter;
+      hyperparameter += dp;
+      cout << "Hyperparameter magnitude increased!" << endl;
       is_twiddle_reset = false;
-    }
-    else
-    {
+    } else {
       if (total_error < current_best_error) {
-        dps.at(i) *= 1.1;
+        dp *= 1.1;
         is_twiddle_reset = true;
         current_best_error = total_error;
-      }
-      else
-      {
-        if (fabs(last_hyperp.at(i)) < fabs(hyperparameters.at(i))) {
-          last_hyperp.at(i) = hyperparameters.at(i);
-          hyperparameters.at(i) -= 2.0 * dps.at(i);
-          cout<<"decreased"<<endl;
+      } else {
+        if (fabs(last_hyperp) < fabs(hyperparameter)) {
+          last_hyperp = hyperparameter;
+          hyperparameter -= 2.0 * dp;
+          cout << "Hyperparameter magnitude decreased!" << endl;
         } else {
-          last_hyperp.at(i) = hyperparameters.at(i);
-          hyperparameters.at(i) += dps.at(i);
-          dps.at(i) *= 0.9;
-          cout<<"magnitude unchanged"<<endl;
+          last_hyperp = hyperparameter;
+          hyperparameter += dp;
+          dp *= 0.9;
+          cout << "Hyperparameter magnitude kept same!" << endl;
           is_twiddle_reset = true;
         }
       }
     }
   }
+}
 
-  cout << "hyper-parameter is "<< hyperparameters.at(0) << hyperparameters.at(1) << hyperparameters.at(2) << endl;
+//
+//void PID::PerformTwiddle(double total_error, double hyperparameter) {
+//  static double current_best_error = 100000;
+//  static bool is_twiddle_init = false;
+//  static bool is_twiddle_reset = false;
+//  static double last_hyperp = 0;
+//  cout<<"Current best error is: "<< current_best_error<<endl;
+//  cout<<"Dp is: "<<dp<<endl;
+//  if (!is_twiddle_init) {
+//    cout<<"Twiddle init";
+//    current_best_error = total_error;
+//    is_twiddle_init = true;
+//    return;
+//  }
+//  if ((fabs(dp) > tolerance)) {
+//    if (is_twiddle_reset) {
+//      cout<<"Twiddle reset!-----------------------------"<<endl;
+//      last_hyperp = hyperparameter;
+//      hyperparameter += dp;
+//      cout<<"Hyperparameter magnitude increased!"<<endl;
+//      is_twiddle_reset = false;
+//    } else {
+//      if (total_error < current_best_error) {
+//        dp *= 1.1;
+//        is_twiddle_reset = true;
+//        current_best_error = total_error;
+//      } else {
+//        if (fabs(last_hyperp) < fabs(hyperparameter)) {
+//          last_hyperp = hyperparameter;
+//          hyperparameter -= 2.0 * dp;
+//          cout<<"Hyperparameter magnitude decreased!"<<endl;
+//        } else {
+//          last_hyperp = hyperparameter;
+//          hyperparameter += dp;
+//          dp *= 0.9;
+//          cout<<"Hyperparameter magnitude kept same!"<<endl;
+//          is_twiddle_reset = true;
+//        }
+//      }
+//    }
+//  }
+//}
+
+
+void PID::MyTwiddle(double total_error, vector<double> hyperparameters)
+{
+//  static double current_best_error = 100000;
+//  static bool is_twiddle_init = false;
+//  static bool is_twiddle_reset = false;
+//  static vector<double> last_hyperp = {0};
+//  double sum_of_dps;
+//
+//  sum_of_dps = std::accumulate(dps.begin(), dps.end(), 0);
+//
+//  cout<<"best error = "<< current_best_error<<endl;
+//
+//  if (!is_twiddle_init)
+//  {
+//    cout<<"Twiddle init";
+//    current_best_error = total_error;
+//    is_twiddle_init = true;
+//  }
+//
+//
+//  for(int i=0 ; i<hyperparameters.size(); i++)
+//  {
+//    if (is_twiddle_reset)
+//    {
+//      cout<<"Twiddle reset"<<endl;
+//      last_hyperp.at(i) = hyperparameters.at(i);
+//      hyperparameters.at(i) += dps.at(i);
+//      cout<<"increased"<<endl;
+//      is_twiddle_reset = false;
+//    }
+//    else
+//    {
+//      if (total_error < current_best_error) {
+//        dps.at(i) *= 1.1;
+//        is_twiddle_reset = true;
+//        current_best_error = total_error;
+//      }
+//      else
+//      {
+//        if (fabs(last_hyperp.at(i)) < fabs(hyperparameters.at(i))) {
+//          last_hyperp.at(i) = hyperparameters.at(i);
+//          hyperparameters.at(i) -= 2.0 * dps.at(i);
+//          cout<<"decreased"<<endl;
+//        }
+//        else
+//        {
+//          last_hyperp.at(i) = hyperparameters.at(i);
+//          hyperparameters.at(i) += dps.at(i);
+//          dps.at(i) *= 0.9;
+//          cout<<"magnitude unchanged"<<endl;
+//          is_twiddle_reset = true;
+//        }
+//      }
+//    }
+//  }
+
+  // cout << "hyper-parameter is "<< hyperparameters.at(0) << hyperparameters.at(1) << hyperparameters.at(2) << endl;
+  cout << "hyper-parameter is "<< hyperparameters.at(0) << endl;
 }
 
 
