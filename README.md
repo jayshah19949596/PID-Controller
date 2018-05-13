@@ -41,12 +41,43 @@ The basic principle of working of a PID controller is to satisfy a boundary valu
     
     where, Ki is a tuning parameter known as the integral gain. The negative sign in the beginning signifies that I component is used to cancel the effect or average error, or in other words, reduce it. The I component is used to correct systemic bias.
     
-  When all components are used, the mathematical equation is given by:
+ When all components are used, the mathematical equation is given by:
   
-  α = (-Kp * error) + (-Kd * d(error)/dt) + (Ki * ∑ error)
+    α = (-Kp * error) + (-Kd * d(error)/dt) + (Ki * ∑ error)
   
   where, α is the control input to the system, often known as the **actuator** input.
+
+
+## Effect of PID
+---
+
+**1] Effect of P Controller**
+  - Initially only the P-Contoller was used to drive the car. The Ki and Kd paramters of the controller was set to 0
+  - Kp parameter was set to 0.2 according to Sebastian Thrun's Lesson. With 0.2 P-contoller manages to keep the car on track for few inital steps
+  - The P-controller drifts to the center lane but overshoots and turns arounf and again drift towards the center lane 
+  - But this osscilation increases and the car gets off the track
+  - Check out this link: https://youtu.be/nJ3vA2VQcUk
   
+**1] Effect of PD Controller**
+  - Only the PD-Contoller was used to drive the car. The Ki paramter of the controller was set to 0
+  - Kp parameter was set to 0.2 and Kd parameter was set to 3.0 according to Sebastian Thrun's Lesson.
+  - PD controller manages to stay on the track for full lap but the car does not stay in the center of the lane properly
+  - Many portion of the lane the car drifts to edge especiall on the bridge
+  - To avoide this drift to edge PID controller is used
+  - Check out this link: https://youtu.be/g76I1-FL188
+  
+**3] Effect of PID Controller**
+  - PID-Contoller was used to drive the car.
+  - Kp parameter was set to 0.2 and Kd parameter was set to 3.0 according to Sebastian Thrun's Lesson.
+  - The Ki parameter was manually tuned to make the car drive porperly in the track
+  - Check out this link: https://youtu.be/DhGqO7uaVwc
+
+
+## Parameter Tuning
+---
+- Used twiddle for only tuning Ki parameter
+- After 1000 steps the simulator was reset and finally came to value of 0.00000001292
+
 
 ## Dependencies
 ---
@@ -90,4 +121,3 @@ using the following settings:
 
 * indent using spaces
 * set tab width to 2 spaces (keeps the matrices in source code aligned)
-
